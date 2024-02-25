@@ -13,10 +13,39 @@ import { createApp } from 'vue';
  * to use in your application's views. An example is included for you.
  */
 
-const app = createApp({});
+const app = createApp({
+    data() {
+        return {
+            messages: []
+        };
+    },
+    created() {
+        this.fetchMessages();
+    },
+    methods: {
+        fetchMessages() {
+            axios.get('/messages').then(response => {
+                this.messages = response.data.data.messages;
+            });
+        },
+        addMessage(message) {
+            this.messages.push(message);
+
+            axios.post('/messages', message).then(response => {
+                console.log(response.data);
+            });
+        }
+    }
+});
 
 import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
+
+import ChatMessages from './components/ChatMessages.vue';
+app.component('chat-messages', ChatMessages);
+
+import ChatForm from './components/ChatForm.vue';
+app.component('chat-form', ChatForm);
 
 /**
  * The following block of code may be used to automatically register your
