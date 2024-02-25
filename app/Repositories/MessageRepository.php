@@ -16,7 +16,7 @@ class MessageRepository
     public function createMessage(User $user, $message): Message
     {
         return $user->messages()->create([
-            'message' => $message
+            'message' => $message,
         ]);
     }
 }

@@ -9,7 +9,7 @@ class ChatController extends Controller
 {
     public function __construct(protected ChatService $chatService)
     {
-        
+
     }
 
     public function index()
@@ -30,8 +30,6 @@ class ChatController extends Controller
             ],
         ];
     }
-
-    
 
     public function sendMessage(Request $request)
     {
