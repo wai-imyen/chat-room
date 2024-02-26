@@ -21,6 +21,10 @@ const app = createApp({
     },
     created() {
         this.fetchMessages();
+        Echo.private('chat_room').listen('MessageSentEvent', (e) => {
+            e.message.user = e.user;
+            this.messages.push(e.message);
+        });
     },
     methods: {
         fetchMessages() {

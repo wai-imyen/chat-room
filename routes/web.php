@@ -17,5 +17,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [ChatController::class, 'index']);
-Route::get('messages', [ChatController::class, 'getMessages']);
-Route::post('messages', [ChatController::class, 'sendMessage']);
+Route::middleware(['auth'])->group(function (): void {
+    Route::get('messages', [ChatController::class, 'getMessages']);
+    Route::post('messages', [ChatController::class, 'sendMessage']);
+});

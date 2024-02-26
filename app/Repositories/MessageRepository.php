@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Collection;
 
 class MessageRepository
 {
-    public function getMessages(User $user): Collection
+    public function getMessages(): Collection
     {
-        return $user->messages;
+        return Message::with('user')->get();
     }
 
     public function createMessage(User $user, $message): Message
