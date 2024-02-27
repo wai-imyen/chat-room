@@ -32,7 +32,7 @@ class ChatService
         $message = $this->messageRepository->createMessage($user, $validated['message']);
 
         // 廣播聊天訊息
-        broadcast(new MessageSentEvent($user, $message))->toOthers();
+        broadcast(new MessageSentEvent($message))->toOthers();
 
         return $message;
     }

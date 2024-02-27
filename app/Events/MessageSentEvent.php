@@ -2,8 +2,8 @@
 
 namespace App\Events;
 
+use App\Http\Resources\MessageResource;
 use App\Models\Message;
-use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -20,7 +20,7 @@ class MessageSentEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public User $user, public Message $message)
+    public function __construct(public Message $message)
     {
         //
     }
@@ -35,5 +35,15 @@ class MessageSentEvent implements ShouldBroadcast
         return [
             new PrivateChannel('chat_room'),
         ];
+    }
+
+    public function broadcastWhen(): bool
+    {
+        return true;
+    }
+
+    public function broadcastWith(): array
+    {
+        return (new MessageResource($this->message))->toArray(request());
     }
 }

@@ -6,6 +6,8 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
+import ChatMessages from './components/ChatMessages.vue';
+import ChatForm from './components/ChatForm.vue';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -22,8 +24,7 @@ const app = createApp({
     created() {
         this.fetchMessages();
         Echo.private('chat_room').listen('MessageSentEvent', (e) => {
-            e.message.user = e.user;
-            this.messages.push(e.message);
+            this.messages.push(e);
         });
     },
     methods: {
@@ -33,22 +34,15 @@ const app = createApp({
             });
         },
         addMessage(message) {
-            this.messages.push(message);
-
             axios.post('/messages', message).then(response => {
                 console.log(response.data);
+                this.messages.push(response.data.data.message);
             });
         }
     }
 });
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
-
-import ChatMessages from './components/ChatMessages.vue';
 app.component('chat-messages', ChatMessages);
-
-import ChatForm from './components/ChatForm.vue';
 app.component('chat-form', ChatForm);
 
 /**
