@@ -16,24 +16,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<style>
-    .chat {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-  
-    .chat li {
-      margin-bottom: 10px;
-      padding-bottom: 5px;
-      border-bottom: 1px dotted #B3A9A9;
-    }
-  
-    .chat li .chat-body p {
-      margin: 0;
-      color: #777777;
-    }
-  
+<style>  
     .panel-body {
       overflow-y: scroll;
       height: 350px;
