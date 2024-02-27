@@ -8,6 +8,7 @@ import './bootstrap';
 import { createApp } from 'vue';
 import ChatMessages from './components/ChatMessages.vue';
 import ChatForm from './components/ChatForm.vue';
+import ChatRoom from './components/ChatRoom.vue';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -15,35 +16,11 @@ import ChatForm from './components/ChatForm.vue';
  * to use in your application's views. An example is included for you.
  */
 
-const app = createApp({
-    data() {
-        return {
-            messages: []
-        };
-    },
-    created() {
-        this.fetchMessages();
-        Echo.private('chat_room').listen('MessageSentEvent', (e) => {
-            this.messages.push(e);
-        });
-    },
-    methods: {
-        fetchMessages() {
-            axios.get('/messages').then(response => {
-                this.messages = response.data.data.messages;
-            });
-        },
-        addMessage(message) {
-            axios.post('/messages', message).then(response => {
-                console.log(response.data);
-                this.messages.push(response.data.data.message);
-            });
-        }
-    }
-});
+const app = createApp();
 
 app.component('chat-messages', ChatMessages);
 app.component('chat-form', ChatForm);
+app.component('chat-room', ChatRoom);
 
 /**
  * The following block of code may be used to automatically register your

@@ -15,8 +15,10 @@
     </ul>
 </template>
 
-<script>
-    export default {
-        props: ['messages']
-    };
+<script setup>
+import { defineProps } from "vue";
+
+const props = defineProps({
+    messages: Object,
+})
 </script>
