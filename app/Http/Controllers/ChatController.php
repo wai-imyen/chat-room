@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MessageResource;
 use App\Services\ChatService;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,7 @@ class ChatController extends Controller
         return [
             'status' => true,
             'data' => [
-                'messages' => $messages,
+                'messages' => (MessageResource::collection($messages))->toArray($request),
             ],
         ];
     }
@@ -41,7 +42,7 @@ class ChatController extends Controller
         return [
             'status' => true,
             'data' => [
-                'message' => $message,
+                'message' => (new MessageResource($message))->toArray($request),
             ],
         ];
     }
