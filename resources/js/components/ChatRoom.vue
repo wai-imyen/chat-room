@@ -24,26 +24,37 @@
 <script setup>
 import { ref } from 'vue';
 import { onMounted } from 'vue';
+import { useUserStore } from "../stores/userStore"
 
 const messages = ref([]);
 
+const userStore = useUserStore();
+
+const fetchUserInfo = () => {
+    axios.get('/user').then(response => {
+        userStore.updateUserInfo(response.data);
+    });
+};
+
 const fetchMessages = () => {
     axios.get('/messages').then(response => {
-    messages.value = response.data.data.messages;
+        messages.value = response.data.data.messages;
     });
 };
 
 const addMessage = (message) => {
     axios.post('/messages', message).then(response => {
-    console.log(response.data);
-    messages.value.push(response.data.data.message);
+        console.log(response.data);
+        messages.value.push(response.data.data.message);
     });
 };
 
 onMounted(() => {
+    fetchUserInfo();
     fetchMessages();
+
     Echo.private('chat_room').listen('MessageSentEvent', (e) => {
-    messages.value.push(e);
+        messages.value.push(e);
     });
 });
 

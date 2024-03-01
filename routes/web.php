@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,9 @@ Auth::routes();
 
 Route::get('/', [ChatController::class, 'index']);
 Route::middleware(['auth'])->group(function (): void {
+    Route::get('user', function (Request $request) {
+        return $request->user();
+    });
     Route::get('messages', [ChatController::class, 'getMessages']);
     Route::post('messages', [ChatController::class, 'sendMessage']);
 });

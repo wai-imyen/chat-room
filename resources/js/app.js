@@ -6,6 +6,7 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 import ChatMessages from './components/ChatMessages.vue';
 import ChatForm from './components/ChatForm.vue';
 import ChatRoom from './components/ChatRoom.vue';
@@ -17,10 +18,12 @@ import ChatRoom from './components/ChatRoom.vue';
  */
 
 const app = createApp();
+const pinia = createPinia();
 
 app.component('chat-messages', ChatMessages);
 app.component('chat-form', ChatForm);
 app.component('chat-room', ChatRoom);
+app.use(pinia);
 
 /**
  * The following block of code may be used to automatically register your
