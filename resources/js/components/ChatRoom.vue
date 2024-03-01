@@ -25,26 +25,27 @@
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 import { useUserStore } from "../stores/userStore"
+import { apiGetUserInfo } from "../apis/instances/user"
+import { apiGetMessages, apiCreateMessage } from "../apis/instances/message"
 
 const messages = ref([]);
 
 const userStore = useUserStore();
 
 const fetchUserInfo = () => {
-    axios.get('/user').then(response => {
+    apiGetUserInfo().then(response => {
         userStore.updateUserInfo(response.data);
     });
 };
 
 const fetchMessages = () => {
-    axios.get('/messages').then(response => {
+    apiGetMessages().then(response => {
         messages.value = response.data.data.messages;
     });
 };
 
-const addMessage = (message) => {
-    axios.post('/messages', message).then(response => {
-        console.log(response.data);
+const addMessage = (request) => {
+    apiCreateMessage(request).then(response => {
         messages.value.push(response.data.data.message);
     });
 };
