@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [ChatController::class, 'index']);
 Route::middleware(['auth'])->group(function (): void {
+    Route::get('/', [ChatController::class, 'index']);
     Route::get('user', function (Request $request) {
         return $request->user();
     });

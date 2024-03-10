@@ -46,7 +46,7 @@ const fetchMessages = () => {
 
 const addMessage = (request) => {
     apiCreateMessage(request).then(response => {
-        messages.value.push(response.data.data.message);
+        // 再透過 echo 去監聽訊息
     });
 };
 

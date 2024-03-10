@@ -20,8 +20,8 @@ class MessageResource extends JsonResource
             'message' => $this->message,
             'created_at' => Carbon::parse($this->created_at)->toDateTimeString(),
             'user' => [
-                'name' => $this->user->name,
-                'email' => $this->user->email,
+                'name' => optional($this->user)->name,
+                'email' => optional($this->user)->email,
             ],
         ];
     }
